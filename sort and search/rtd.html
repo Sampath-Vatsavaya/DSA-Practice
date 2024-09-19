@@ -1,0 +1,411 @@
+
+
+
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+<style> body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container-fluid {
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h2, h3 {
+            color: white;
+            margin-bottom: 20px;
+            background-color: #007bff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .form-group input {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .filter-icon {
+            cursor: pointer;
+            font-size: 1.5em;
+            color: #007bff;
+        }
+        .filters {
+            display: none;
+            margin-top: 15px;
+            text-align: left;
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .filter-group label {
+            width: 100px;
+            margin-right: 10px;
+        }
+        .filter-group input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .details {
+            display: none;
+        }
+        .navbar-nav {
+            flex: 1;
+            justify-content: space-around;
+        }
+        .navbar-nav.ml-auto {
+            flex: unset;
+        }
+</style>
+ 
+</head>
+<body>
+	
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+
+<title>Insert title here</title>
+<style>
+        .nav-link {
+    margin: 0 5px; /* Space between links */
+}
+.nav-link:active {
+        font-weight: bold; /* Make active link bold */
+    }
+    
+            .nav-link {
+            position: relative;
+            color: #fff;
+        }
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width .3s;
+            position: absolute;
+            bottom: -3px; /* Adjust this value to control the vertical space */
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 50%; /* Adjust this value to control the width of the line */
+        }
+        .navbar {
+        background: linear-gradient(to right, #00b09b, #96c93d) !important; /* Navbar gradient */
+    }
+        .nav-link.active {
+            font-weight: bold !important; /* Make active link bold */
+        }
+    
+    </style>
+</head>
+<body>
+
+ <nav class="navbar navbar-expand-lg navbar-dark  container-fluid bg-dark">
+        <a class="navbar-brand" href="#">Train Ticket System</a>
+        <div class="collapse navbar-collapse d-flex justify-content-between">
+            <div class="mx-auto"> <!-- Centering the links -->
+                <ul class="navbar-nav" id="navl">
+                    <li class="nav-item">
+                        <a id="home-nav" class="nav-link " href="User" >Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="SearchTrain" id="" class="nav-link" >Train Search and Availability</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="viewticket-nav" href="BookingHistory" class="nav-link">View Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="updatedetails-nav" class="nav-link" href="UpdateDetails" >Update Details</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <a id="logout" class="btn btn-outline-light" href="Logout">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+
+</body>
+</html>
+
+ 	
+ 	
+ 	
+ 	  <div class="container-fluid">
+        <h2>Booking History</h2>
+        <div class="form-group">
+            <label for="search"></label>
+            <input type="text" id="search" name="search" placeholder="Enter PNR or Train Name" onkeyup="filterTable()">
+            <span class="filter-icon" onclick="toggleFilters()">&#x1F5D2;</span>
+        </div>
+        <div class="filters" id="filters">
+            <h3>Filter Options</h3>
+            <div class="filter-group">
+                <label for="source">Source</label>
+                <input type="text" id="source" name="source" placeholder="Enter Source Station" onkeyup="filterTable()">
+            </div>
+            <div class="filter-group">
+                <label for="destination">Destination</label>
+                <input type="text" id="destination" name="destination" placeholder="Enter Destination Station" onkeyup="filterTable()">
+            </div>
+            <div class="filter-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" onchange="filterTable()">
+            </div>
+            <div class="filter-group">
+                <label for="train-name">Train Name</label>
+                <input type="text" id="train-name" name="train-name" placeholder="Enter Train Name" onkeyup="filterTable()">
+            </div>
+        </div>
+        <button type="submit" onclick="filterTable()">Search</button>
+	 
+        <table id="bookingTable">
+            <thead>
+                <tr>
+                    <th>PNR</th>
+                    <th>Train Name</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Date</th>
+                    <th>Tickets Fare</th>
+                    <th>Booking Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Sample Data -->
+                
+                	
+                	
+                	<tr>
+                    <td>1701</td>
+                    <td>Howrah</td>
+                    <td>mumbai</td>
+                    <td>kolkata</td>
+                    <td>2024-08-05</td>
+                    <td>1800.34</td>
+                    <td>2024-08-05</td>
+                    <td><button onclick="toggleDetails(this)">View Ticket</button></td>
+                </tr>
+                <tr class="details">
+                    <td colspan="8">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Passenger Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Seat Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>Saketh</td>
+                                    <td>25</td>
+                                    <td>M</td>
+                                    <td>12</td>
+                                </tr>
+                                
+                                
+                                
+                                
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                	
+                	
+                	
+                	
+                	
+                	
+               
+                	
+                	
+                	<tr>
+                    <td>1900</td>
+                    <td>Howrah</td>
+                    <td>mumbai</td>
+                    <td>kolkata</td>
+                    <td>2024-08-05</td>
+                    <td>1800.34</td>
+                    <td>2024-08-05</td>
+                    <td><button onclick="toggleDetails(this)">View Ticket</button></td>
+                </tr>
+                <tr class="details">
+                    <td colspan="8">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Passenger Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Seat Number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr>
+                                    <td>Abc</td>
+                                    <td>23</td>
+                                    <td>M</td>
+                                    <td>14</td>
+                                </tr>
+                                
+                                
+                                
+                                
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                	
+                	
+                	
+                	
+                	
+                	
+               
+                <!-- Add more sample data as needed -->
+            </tbody>
+        </table>
+    </div>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+   <script>
+        function toggleFilters() {
+            var filters = document.getElementById("filters");
+            if (filters.style.display === "none" || filters.style.display === "") {
+                filters.style.display = "block";
+            } else {
+                filters.style.display = "none";
+            }
+        }
+
+        function filterTable() {
+            var input, filter, table, tr, td, i, j, txtValue;
+            var filterInputs = {
+                search: document.getElementById("search").value.toUpperCase(),
+                source: document.getElementById("source").value.toUpperCase(),
+                destination: document.getElementById("destination").value.toUpperCase(),
+                date: document.getElementById("date").value,
+                trainName: document.getElementById("train-name").value.toUpperCase()
+            };
+            table = document.getElementById("bookingTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 1; i < tr.length; i++) {
+                if (tr[i].className === "details") {
+                    tr[i].style.display = "none";
+                    continue;
+                }
+                tr[i].style.display = "none";
+                td = tr[i].getElementsByTagName("td");
+                var match = true;
+                if (td) {
+                    for (var key in filterInputs) {
+                        if (filterInputs[key]) {
+                            if (key === "date") {
+                                txtValue = td[4].textContent || td[4].innerText;
+                                if (txtValue !== filterInputs[key]) {
+                                    match = false;
+                                }
+                            } else {
+                                txtValue = "";
+                                if (key === "search") {
+                                    txtValue += td[0].textContent || td[0].innerText;
+                                    txtValue += " " + (td[1].textContent || td[1].innerText);
+                                } else if (key === "source") {
+                                    txtValue = td[2].textContent || td[2].innerText;
+                                } else if (key === "destination") {
+                                    txtValue = td[3].textContent || td[3].innerText;
+                                } else if (key === "trainName") {
+                                    txtValue = td[1].textContent || td[1].innerText;
+                                }
+                                if (txtValue.toUpperCase().indexOf(filterInputs[key]) === -1) {
+                                    match = false;
+                                }
+                            }
+                        }
+                    }
+                    if (match) {
+                        tr[i].style.display = "";
+                    }
+                }
+            }
+        }
+
+        function toggleDetails(button) {
+            var tr = button.closest("tr");
+            var nextTr = tr.nextElementSibling;
+            if (nextTr && nextTr.classList.contains("details")) {
+                if (nextTr.style.display === "table-row") {
+                    nextTr.style.display = "none";
+                } else {
+                    nextTr.style.display = "table-row";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
